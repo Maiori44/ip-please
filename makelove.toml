@@ -1,0 +1,13 @@
+name = "ip-please"
+default_targets = []
+build_directory = "release"
+
+love_files = [
+    "*.lua",
+    "*.ttf",
+]
+
+[hooks]
+prebuild = [
+    "clue src -t=luajit"
+]
