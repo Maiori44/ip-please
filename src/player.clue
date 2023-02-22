@@ -1,19 +1,28 @@
 static offset = 0
+static pointer = 1
 
 local utf8 = require("utf8")
 local terminal = import("terminal")
 
 method love.keypressed(key) {
 	if terminal::finished() {
+		local input = terminal.input[pointer]
 		match key {
+			"up" if pointer < #terminal.input => {
+				pointer += 1
+			}
+			"down" if pointer > 1 => {
+				pointer -= 1
+			}
 			"backspace" => {
-				local byteoffset = utf8.offset(terminal.input, -1)
+				local byteoffset = utf8.offset(input, -1)
 				if byteoffset {
-					terminal.input = $::sub(1, byteoffset - 1)
+					input = $::sub(1, byteoffset - 1)
 				}
 			}
 			"return" => {
-				match terminal.input::lower() {
+				pointer = 1
+				match input::lower() {
 					"" => {
 						return
 					}
@@ -32,10 +41,10 @@ method love.keypressed(key) {
 						love.wheelmoved(0, 0)
 					}
 					default => {
-						terminal::write(terminal.input .. ": command not found", 120, 1, 0, 0)
+						terminal::write(input .. ": command not found", 120, 1, 0, 0)
 					}
 				}
-				terminal.input = ""
+				table.insert(terminal.input, 1, "")
 			}
 		}
 	} else {
@@ -47,7 +56,7 @@ method love.keypressed(key) {
 }
 
 method love.textinput(t) {
-	terminal.input ..= t
+	terminal.input[pointer] ..= t
 	love.wheelmoved(0, -math.huge)
 }
 

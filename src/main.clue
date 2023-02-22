@@ -25,7 +25,7 @@ method love.load() {
 
 method love.update(dt) {
 	leveltime += dt
-	local unfinished = terminal.unfinished[1]
+	local unfinished = terminal.unfinished[pointer]
 	if unfinished {
 		unfinished.progress += dt * unfinished.speed
 		if unfinished.progress >= #unfinished.text {
@@ -40,7 +40,7 @@ method love.draw() {
 	local y = terminal::draw()
 	if terminal::finished() {
 		love.graphics.setColor(0.125490196, 0.760784314, 0.054901961)
-		local text = "$ " .. terminal.input
+		local text = "$ " .. terminal.input[pointer]
 		love.graphics.print(text, 5, y)
 		if math.floor(leveltime) % 2 == 0 {
 			love.graphics.print("_", 5 + font::getWidth(text), y)
