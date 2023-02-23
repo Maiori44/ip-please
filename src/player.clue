@@ -1,5 +1,6 @@
 static offset = 0
 static pointer = 1
+static speedup = 1
 
 local utf8 = require("utf8")
 local terminal = import("terminal")
@@ -116,10 +117,7 @@ method love.keypressed(key) {
 			}
 		}
 	} else {
-		for _, text in terminal.unfinished {
-			text.progress = nil
-		}
-		terminal.unfinished = {}
+		speedup = 2
 	}
 }
 

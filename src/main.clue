@@ -28,7 +28,7 @@ method love.update(dt) {
 	leveltime += dt
 	local unfinished = terminal.unfinished[pointer]
 	if unfinished {
-		unfinished.progress += dt * unfinished.speed
+		unfinished.progress += dt * unfinished.speed * speedup
 		if unfinished.progress >= #unfinished.text {
 			unfinished.progress = nil
 			table.remove(terminal.unfinished, 1)
