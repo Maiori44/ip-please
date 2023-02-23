@@ -1,3 +1,5 @@
+static hacked, hackamount
+
 local terminal = import("terminal")
 
 local names = {}
@@ -15,17 +17,19 @@ local fn EntryCode(seed = math.floor(leveltime / 30) * 10 + love.math.random(1, 
 	local rng = love.math.newRandomGenerator(seed)
 	local code = ""
 	for _ = 1, 20 {
-		code ..= string.char(rng::random(48, 122))
+		code ..= string.char(rng::random(33, 122))
 	}
 	return code
 }
 
 local user = {
 	new = fn(self) {
+		local hacker = love.math.random() > 0.7
 		self.name = names[love.math.random(5000)]
-		self.age = math.floor(love.math.random(9, 150))
-		self.code = EntryCode()
+		self.age = math.floor(hacker ? love.math.random(14, 50) : love.math.random(9, 150))
+		self.code = EntryCode(hacker ? leveltime : nil)
 		self.time = leveltime
+		self.hacker = hacker
 	}
 	next = fn(self) {
 		commands.score.code()
@@ -66,7 +70,12 @@ commands = {
 		desc = "Allow the current user."
 		code = fn {
 			terminal::write(user.name .. " was allowed connection...", 10)
-			if user.age < 14 {
+			if user.hacker {
+				terminal::write("But they were an hacker!", 60, 1, 0, 0)
+				hacked = leveltime + 0.5
+				hackamount = 0.5
+				return
+			} elseif user.age < 14 {
 				terminal::write("But they were too young to join.", 60, 1, 0, 0)
 				terminal::write("(-50 points)", 60, 1, 0, 0)
 				score -= 50

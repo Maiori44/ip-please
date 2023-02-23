@@ -5,6 +5,7 @@ static leveltime = love.math.random(0, 3000)
 
 io.stdout::setvbuf("no")
 
+local utf8 = require("utf8")
 local terminal = import("terminal")
 import("player")
 
@@ -32,6 +33,26 @@ method love.update(dt) {
 			unfinished.progress = nil
 			table.remove(terminal.unfinished, 1)
 		}
+	} elseif hacked && leveltime > hacked {
+		for _, line in terminal {
+			local len = utf8.len(line.text)
+			local i = love.math.random(len)
+			local corrupted = ""
+			for p, c with utf8.codes(line.text) {
+				if hackamount > 0.0001 || p < len {
+					corrupted ..= p == i ? string.char(love.math.random(33, 122)) : utf8.char(c)
+				}
+			}
+			if corrupted == "" {
+				corrupted = " "
+			}
+			line.text = corrupted
+			line.r = love.math.random()
+			line.g = love.math.random()
+			line.b = love.math.random()
+		}
+		hacked = leveltime + hackamount
+		hackamount = $ / 1.25
 	}
 }
 
