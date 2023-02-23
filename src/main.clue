@@ -1,7 +1,7 @@
 static font = love.graphics.newFont("clacon2.ttf", 24, "mono")
 static fontheight = font::getHeight() + 4
 static screenheight = love.graphics.getHeight()
-static leveltime = 0
+static leveltime = love.math.random(0, 3000)
 
 io.stdout::setvbuf("no")
 

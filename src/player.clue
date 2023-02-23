@@ -54,7 +54,7 @@ commands = {
 			terminal::write("(Type 'deny' to not let a user in)")
 			terminal::write("Hackers will have an invalid entry code.")
 			terminal::write("Type 'codes' to get a list of currently valid codes.")
-			terminal::write("(Valid codes change every minute)")
+			terminal::write("(Valid codes change every 30 seconds)")
 			terminal::write("Trolls will try to join with high ages (80+), do not let them in.")
 			terminal::write("Lastly, deny anyone younger than 14.")
 			terminal::write("Allowing and denying correctly will grant you points.")

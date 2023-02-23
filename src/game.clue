@@ -11,11 +11,20 @@ for name with love.filesystem.lines("names.txt") {
 local score = 0
 local commands
 
+local fn EntryCode(seed = math.floor(leveltime / 30) * 10 + love.math.random(1, 10)) {
+	local rng = love.math.newRandomGenerator(seed)
+	local code = ""
+	for _ = 1, 20 {
+		code ..= string.char(rng::random(48, 122))
+	}
+	return code
+}
+
 local user = {
 	new = fn(self) {
 		self.name = names[love.math.random(5000)]
 		self.age = math.floor(love.math.random(9, 150))
-		self.code = "???"
+		self.code = EntryCode()
 		self.time = leveltime
 	}
 	next = fn(self) {
@@ -41,6 +50,16 @@ commands = {
 			terminal::write("Name: " .. user.name, 60, 1, 1, 0)
 			terminal::write("Age: " .. user.age, 60, 1, 1, 0)
 			terminal::write("Entry Code: " .. user.code, 60, 1, 1, 0)
+		}
+	}
+	codes = {
+		desc = "Display the 10 currently valid codes."
+		code = fn {
+			terminal::write("Currently valid codes:")
+			local seed = math.floor(leveltime / 30) * 10
+			for i = 1, 10 {
+				terminal::write(EntryCode(seed + i), 60, 1, 1, 0)
+			}
 		}
 	}
 	allow = {
