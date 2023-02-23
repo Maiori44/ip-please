@@ -57,7 +57,7 @@ commands = {
 				score -= 200
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
-				local gained = 500 + math.min(math.floor((user.time - leveltime) * 20), -10)
+				local gained = math.max(500 + math.floor((user.time - leveltime) * 20), 10)
 				terminal::write(string.format("(+%d points)", gained), 60, 1, 1, 0)
 				score += gained
 			}
@@ -74,7 +74,7 @@ commands = {
 				score -= 100
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
-				local gained = 250 + math.min(math.floor((user.time - leveltime) * 20), -10)
+				local gained = math.max(300 + math.floor((user.time - leveltime) * 20), 10)
 				terminal::write(string.format("(+%d points)", gained), 60, 1, 1, 0)
 				score += gained
 			}
