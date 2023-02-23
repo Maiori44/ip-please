@@ -3,7 +3,7 @@ local utf8 = require("utf8")
 return {
 	input = {""}
 	unfinished = {}
-	write = fn(self, text, speed = 60, r = 0.125490196, g = 0.760784314, b = 0.054901961) {
+	write = fn(self, text, speed = 120, r = 0.125490196, g = 0.760784314, b = 0.054901961) {
 		local text = {
 			progress = 0
 			speed = $

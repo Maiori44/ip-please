@@ -14,12 +14,12 @@ love.graphics.setFont(font)
 love.keyboard.setKeyRepeat(true)
 
 method love.load() {
-	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗    ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 600)
-	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 600)
-	terminal::write("║ ║ ║ ╚═╝ ║     ║ ╚═╝ ║ ║ ║    ║ ╚═══╗ ║ ╚═╝ ║ ║ ╚═══╗ ║ ╚═══╗", 600)
-	terminal::write("║ ║ ║ ╔═══╝     ║ ╔═══╝ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ╚═══╗ ║ ║ ╔═══╝", 600)
-	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 600)
-	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 600)
+	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗    ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 300)
+	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 300)
+	terminal::write("║ ║ ║ ╚═╝ ║     ║ ╚═╝ ║ ║ ║    ║ ╚═══╗ ║ ╚═╝ ║ ║ ╚═══╗ ║ ╚═══╗", 300)
+	terminal::write("║ ║ ║ ╔═══╝     ║ ╔═══╝ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ╚═══╗ ║ ║ ╔═══╝", 300)
+	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 300)
+	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 300)
 	terminal::write("A game for the LÖVE Jam 2023 - Created by Maiori")
 	terminal::write("(Type 'start' to begin)")
 }
@@ -28,7 +28,7 @@ method love.update(dt) {
 	leveltime += dt
 	local unfinished = terminal.unfinished[pointer]
 	if unfinished {
-		unfinished.progress += dt * unfinished.speed * speedup
+		unfinished.progress += dt * unfinished.speed * 2
 		if unfinished.progress >= #unfinished.text {
 			unfinished.progress = nil
 			table.remove(terminal.unfinished, 1)

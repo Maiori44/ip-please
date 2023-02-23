@@ -33,7 +33,7 @@ local user = {
 	}
 	next = fn(self) {
 		commands.score.code()
-		terminal::write("Reading next user's information...")
+		terminal::write("Reading next user's information...", 15)
 		self::new()
 		commands.user.code()
 	}

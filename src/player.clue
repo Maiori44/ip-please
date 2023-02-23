@@ -1,6 +1,5 @@
 static offset = 0
 static pointer = 1
-static speedup = 1
 
 local utf8 = require("utf8")
 local terminal = import("terminal")
@@ -10,7 +9,7 @@ commands = {
 	help = {
 		desc = "Display this message."
 		code = fn {
-			terminal::write("List of currently available commands:", 120)
+			terminal::write("List of currently available commands:")
 			for k, v of commands {
 				terminal::write(string.format("%s - %s", k::upper(), v.desc))
 			}
@@ -67,9 +66,9 @@ commands = {
 	start = {
 		desc = "Starts the game."
 		code = fn {
-			terminal::write("Initiating server............", 15)
+			terminal::write("Starting server...", 5)
 			terminal::write("Done!")
-			terminal::write("Reading first user's information...")
+			terminal::write("Reading first user's information...", 15)
 			commands.start = nil
 			setmetatable(commands, {
 				__index = import("game")
@@ -111,13 +110,11 @@ method love.keypressed(key) {
 				if command {
 					command()
 				} else {
-					terminal::write(input .. ": command not found", 120, 1, 0, 0)
+					terminal::write(input .. ": command not found", nil, 1, 0, 0)
 				}
 				table.insert(terminal.input, 1, "")
 			}
 		}
-	} else {
-		speedup = 2
 	}
 }
 
