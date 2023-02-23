@@ -9,8 +9,15 @@ commands = {
 	help = {
 		desc = "Display this message."
 		code = fn {
+			terminal::write("List of currently available commands:", 120)
 			for k, v of commands {
 				terminal::write(string.format("%s - %s", k::upper(), v.desc))
+			}
+			local game_commands = getmetatable(commands)?.__index
+			if game_commands {
+				for k, v of game_commands {
+					terminal::write(string.format("%s - %s", k::upper(), v.desc))
+				}
 			}
 		}
 	}
@@ -34,6 +41,15 @@ commands = {
 				terminal[k] = nil
 			}
 			love.wheelmoved(0, 0)
+		}
+	}
+	start = {
+		desc = "Starts the game."
+		code = fn {
+			commands.start = nil
+			setmetatable(commands, {
+				__index = import("game")
+			})
 		}
 	}
 }
@@ -69,9 +85,6 @@ method love.keypressed(key) {
 					terminal::write(input .. ": command not found", 120, 1, 0, 0)
 				}
 				table.insert(terminal.input, 1, "")
-			}
-			"start" => {
-
 			}
 		}
 	} else {
