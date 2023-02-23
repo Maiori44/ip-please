@@ -40,22 +40,28 @@ commands = {
 
 method love.keypressed(key) {
 	if terminal::finished() {
-		local input = terminal.input[pointer]
+		local input = terminal.input[1]::gsub("%s+", "")
 		match key {
 			"up" if pointer < #terminal.input => {
 				pointer += 1
+				terminal.input[1] = terminal.input[pointer]
 			}
 			"down" if pointer > 1 => {
 				pointer -= 1
+				terminal.input[1] = terminal.input[pointer]
 			}
 			"backspace" => {
 				local byteoffset = utf8.offset(input, -1)
 				if byteoffset {
-					input = $::sub(1, byteoffset - 1)
+					terminal.input[1] = $::sub(1, byteoffset - 1)
 				}
 			}
 			"return" => {
 				pointer = 1
+				if input == "" {
+					terminal.input[1] = ""
+					return
+				}
 				local command = commands[input::lower()]?.code
 				if command {
 					command()
@@ -77,7 +83,7 @@ method love.keypressed(key) {
 }
 
 method love.textinput(t) {
-	terminal.input[pointer] ..= t
+	terminal.input[1] ..= t
 	love.wheelmoved(0, -math.huge)
 }
 
