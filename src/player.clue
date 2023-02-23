@@ -4,6 +4,40 @@ static pointer = 1
 local utf8 = require("utf8")
 local terminal = import("terminal")
 
+local commands
+commands = {
+	help = {
+		desc = "Display this message."
+		code = fn {
+			for k, v of commands {
+				terminal::write(string.format("%s - %s", k::upper(), v.desc))
+			}
+		}
+	}
+	fps = {
+		desc = "Display the game's FPS."
+		code = fn {
+			local fps = love.timer.getFPS()
+			terminal::write("FPS: " .. tostring(fps), 30, (1 - fps / 60) * 2, fps / 60, 0)
+		}
+	}
+	memory = {
+		desc = "Display the amount of memory in use."
+		code = fn {
+			terminal::write(string.format("Used memory: %dkb", collectgarbage("count")))
+		}
+	}
+	clear = {
+		desc = "Clears the terminal."
+		code = fn {
+			for k, _ in terminal {
+				terminal[k] = nil
+			}
+			love.wheelmoved(0, 0)
+		}
+	}
+}
+
 method love.keypressed(key) {
 	if terminal::finished() {
 		local input = terminal.input[pointer]
@@ -22,29 +56,16 @@ method love.keypressed(key) {
 			}
 			"return" => {
 				pointer = 1
-				match input::lower() {
-					"" => {
-						return
-					}
-					"fps" => {
-						local fps = love.timer.getFPS()
-						terminal::write("FPS: " .. tostring(fps), 30, (1 - fps / 60) * 2, fps / 60, 0)
-					}
-					"memory" => {
-						terminal::write(string.format("Used memory: %dkb", collectgarbage("count")))
-						collectgarbage("collect")
-					}
-					"clear" => {
-						for k, _ in terminal {
-							terminal[k] = nil
-						}
-						love.wheelmoved(0, 0)
-					}
-					default => {
-						terminal::write(input .. ": command not found", 120, 1, 0, 0)
-					}
+				local command = commands[input::lower()]?.code
+				if command {
+					command()
+				} else {
+					terminal::write(input .. ": command not found", 120, 1, 0, 0)
 				}
 				table.insert(terminal.input, 1, "")
+			}
+			"start" => {
+
 			}
 		}
 	} else {
