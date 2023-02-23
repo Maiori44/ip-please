@@ -10,7 +10,7 @@ for name with love.filesystem.lines("names.txt") {
 	i += 1
 }
 
-local score = 0
+local score, mistakes = 0, 1
 local commands
 
 local fn EntryCode(seed = math.floor(leveltime / 30) * 10 + love.math.random(1, 10)) {
@@ -41,11 +41,28 @@ local user = {
 
 user::new()
 
+local fn AwardScore(amount) {
+	if amount < 0 {
+		amount = math.ceil($ * mistakes)
+		terminal::write(string.format("(%d points)", amount), 60, 1, 0, 0)
+		mistakes += 0.1
+	} else {
+		terminal::write(string.format("(+%d points)", amount), 60, 1, 1, 0)
+	}
+	score += amount
+}
+
 commands = {
 	score = {
 		desc = "Display current score."
 		code = fn {
 			terminal::write("Score: " .. score, nil, 1, 0, 1)
+			local mistakes = (mistakes - 1) * 10
+			if mistakes == 0 {
+				terminal::write("You never messed up so far.", nil, 1, 0, 1)
+			} else {
+				terminal::write("You messed up " .. mistakes .. " times.", nil, 1, 0, 1)
+			}
 		}
 	}
 	user = {
@@ -77,17 +94,13 @@ commands = {
 				return
 			} elseif user.age < 14 {
 				terminal::write("But they were too young to join.", 60, 1, 0, 0)
-				terminal::write("(-100 points)", 60, 1, 0, 0)
-				score -= 100
+				AwardScore(-100)
 			} elseif user.age >= 80 {
 				terminal::write("But they were a troll.", 60, 1, 0, 0)
-				terminal::write("(-300 points)", 60, 1, 0, 0)
-				score -= 300
+				AwardScore(-300)
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
-				local gained = math.max(500 + math.floor((user.time - leveltime) * 20), 10)
-				terminal::write(string.format("(+%d points)", gained), 60, 1, 1, 0)
-				score += gained
+				AwardScore(math.max(500 + math.floor((user.time - leveltime) * 20), 10))
 			}
 			user::next()
 		}
@@ -98,13 +111,10 @@ commands = {
 			terminal::write(user.name .. " was denied connection...", 10)
 			if !user.hacker && user.age >= 14 && user.age < 80 {
 				terminal::write("But they had no bad intentions.", 60, 1, 0, 0)
-				terminal::write("(-200 points)", 60, 1, 0, 0)
-				score -= 200
+				AwardScore(-200)
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
-				local gained = math.max(300 + math.floor((user.time - leveltime) * 20), 10)
-				terminal::write(string.format("(+%d points)", gained), 60, 1, 1, 0)
-				score += gained
+				AwardScore(math.max(300 + math.floor((user.time - leveltime) * 20), 10))
 			}
 			user::next()
 		}
