@@ -96,7 +96,7 @@ commands = {
 		desc = "Deny the current user."
 		code = fn {
 			terminal::write(user.name .. " was denied connection...", 10)
-			if user.age >= 14 && user.age < 80 {
+			if !user.hacker && user.age >= 14 && user.age < 80 {
 				terminal::write("But they had no bad intentions.", 60, 1, 0, 0)
 				terminal::write("(-100 points)", 60, 1, 0, 0)
 				score -= 100
