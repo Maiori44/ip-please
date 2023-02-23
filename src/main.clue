@@ -14,12 +14,12 @@ love.graphics.setFont(font)
 love.keyboard.setKeyRepeat(true)
 
 method love.load() {
-	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗    ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 300)
-	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 300)
-	terminal::write("║ ║ ║ ╚═╝ ║     ║ ╚═╝ ║ ║ ║    ║ ╚═══╗ ║ ╚═╝ ║ ║ ╚═══╗ ║ ╚═══╗", 300)
-	terminal::write("║ ║ ║ ╔═══╝     ║ ╔═══╝ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ╚═══╗ ║ ║ ╔═══╝", 300)
-	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 300)
-	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 300)
+	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗    ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 400)
+	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 400)
+	terminal::write("║ ║ ║ ╚═╝ ║     ║ ╚═╝ ║ ║ ║    ║ ╚═══╗ ║ ╚═╝ ║ ║ ╚═══╗ ║ ╚═══╗", 400)
+	terminal::write("║ ║ ║ ╔═══╝     ║ ╔═══╝ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ╚═══╗ ║ ║ ╔═══╝", 400)
+	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 400)
+	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 400)
 	terminal::write("A game for the LÖVE Jam 2023 - Created by Maiori")
 	terminal::write("(Type 'start' to begin)")
 }
@@ -39,12 +39,11 @@ method love.update(dt) {
 			local i = love.math.random(len)
 			local corrupted = ""
 			for p, c with utf8.codes(line.text) {
-				if hackamount > 0.0001 || p < len {
-					corrupted ..= p == i ? string.char(love.math.random(33, 122)) : utf8.char(c)
-				}
-			}
-			if corrupted == "" {
-				corrupted = " "
+				corrupted ..= p == i
+					? (hackamount > 0.0001
+						? string.char(love.math.random(33, 122))
+						: " ")
+					: utf8.char(c)
 			}
 			line.text = corrupted
 			line.r = love.math.random()
