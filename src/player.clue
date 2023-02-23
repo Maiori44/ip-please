@@ -80,6 +80,9 @@ commands = {
 }
 
 method love.keypressed(key) {
+	if hacked {
+		return
+	}
 	if terminal::finished() {
 		local input = terminal.input[1]::gsub("%s+", "")
 		match key {

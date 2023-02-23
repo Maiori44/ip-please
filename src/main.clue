@@ -59,13 +59,12 @@ method love.update(dt) {
 method love.draw() {
 	love.graphics.translate(0, 5 + offset)
 	local y = terminal::draw()
-	if terminal::finished() {
+	if terminal::finished() && !hacked {
 		love.graphics.setColor(0.125490196, 0.760784314, 0.054901961)
 		local text = "$ " .. terminal.input[1]
 		love.graphics.print(text, 5, y)
 		if math.floor(leveltime) % 2 == 0 {
 			love.graphics.print("_", 5 + font::getWidth(text), y)
-			//if I find the time: maybe you could edit the text from any location?
 		}	
 	}
 }
