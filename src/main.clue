@@ -39,7 +39,7 @@ method love.update(dt) {
 			local i = love.math.random(len)
 			local corrupted = ""
 			for p, c with utf8.codes(line.text) {
-				corrupted ..= p == i
+				corrupted ..= p == i || p == love.math.random(len)
 					? (hackamount > 0.00005
 						? string.char(love.math.random(33, 122))
 						: " ")
@@ -52,6 +52,12 @@ method love.update(dt) {
 		}
 		hacked = leveltime + hackamount
 		hackamount = $ / 1.25
+		if hackamount < 0.00000000000001 {
+			hacked = nil
+			hackamount = nil
+			commands.clear.code()
+			terminal::write("GAME OVER", 1, 1, 0, 0)
+		}
 	}
 }
 

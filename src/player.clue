@@ -1,10 +1,10 @@
+static commands
 static offset = 0
 static pointer = 1
 
 local utf8 = require("utf8")
 local terminal = import("terminal")
 
-local commands
 commands = {
 	help = {
 		desc = "Display this message."
