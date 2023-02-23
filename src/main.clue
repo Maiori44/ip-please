@@ -40,7 +40,7 @@ method love.update(dt) {
 			local corrupted = ""
 			for p, c with utf8.codes(line.text) {
 				corrupted ..= p == i
-					? (hackamount > 0.0001
+					? (hackamount > 0.00005
 						? string.char(love.math.random(33, 122))
 						: " ")
 					: utf8.char(c)
