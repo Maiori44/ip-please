@@ -1,5 +1,5 @@
 name = "ip-please"
-default_targets = []
+default_targets = ["win32", "win64", "macos"]
 build_directory = "release"
 
 love_files = [
