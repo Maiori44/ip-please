@@ -43,13 +43,38 @@ commands = {
 			love.wheelmoved(0, 0)
 		}
 	}
+	guide = {
+		desc = "Explains how to play the game."
+		code = fn {
+			terminal::write("Welcome to IP Please!")
+			terminal::write("You are the admin of a private server.")
+			terminal::write("Many people want to join, your job is to let them in.")
+			terminal::write("(Type 'allow' to let a user in)")
+			terminal::write("Hackers may try to infiltrate, do not let them in.")
+			terminal::write("(Type 'deny' to not let a user in)")
+			terminal::write("Hackers will have an invalid entry code.")
+			terminal::write("Type 'codes' to get a list of currently valid codes.")
+			terminal::write("(Valid codes change every minute)")
+			terminal::write("Trolls will try to join with high ages (80+), do not let them in.")
+			terminal::write("Lastly, deny anyone younger than 14.")
+			terminal::write("Allowing and denying correctly will grant you score.")
+			terminal::write("(The faster you are the more score you get)")
+			terminal::write("Messing up may lead to the end of the server.")
+			terminal::write("Good luck, and thanks for playing!", 60, 1, 1, 0)
+		}
+	}
 	start = {
 		desc = "Starts the game."
 		code = fn {
+			terminal::write("Initiating server............", 15)
+			terminal::write("Done!")
+			terminal::write("Reading first user's information...")
 			commands.start = nil
 			setmetatable(commands, {
 				__index = import("game")
 			})
+			commands.user.code()
+			terminal::write("(If this is your first time playing, type 'guide' for help)")
 		}
 	}
 }

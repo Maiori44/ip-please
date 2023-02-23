@@ -20,7 +20,7 @@ method love.load() {
 	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 600)
 	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 600)
 	terminal::write("A game for the LÖVE Jam 2023 - Created by Maiori")
-	terminal::write("(Type start to begin)")
+	terminal::write("(Type 'start' to begin)")
 }
 
 method love.update(dt) {
