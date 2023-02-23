@@ -64,7 +64,7 @@ method love.update(dt) {
 			mistakes = 1
 			terminal::write("GAME OVER", 1, 1, 0, 0)
 			terminal::write("You server was destroyed...will you try again?", 15, 1, 0, 0)
-			terminal::write("(Type restart to try again)", nil, 1, 0, 0)
+			terminal::write("(Type 'restart' to try again)", nil, 1, 0, 0)
 		}
 	}
 }

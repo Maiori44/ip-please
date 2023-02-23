@@ -16,7 +16,7 @@ commands = {
 			} else {
 				exiting = true
 				terminal::write("Are you sure?", nil, 1, 0, 0)
-				terminal::write("(Type exit again to confirm)")
+				terminal::write("(Type 'exit' again to confirm)")
 			}
 		}
 	}
