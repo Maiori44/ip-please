@@ -5,6 +5,7 @@ build_directory = "release"
 love_files = [
     "*.lua",
     "*.ttf",
+    "*.txt",
 ]
 
 [hooks]
