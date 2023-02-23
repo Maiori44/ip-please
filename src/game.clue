@@ -45,7 +45,7 @@ local fn AwardScore(amount) {
 	if amount < 0 {
 		amount = math.ceil($ * mistakes)
 		terminal::write(string.format("(%d points)", amount), 60, 1, 0, 0)
-		mistakes += 0.1
+		mistakes += 0.5
 	} else {
 		terminal::write(string.format("(+%d points)", amount), 60, 1, 1, 0)
 	}
@@ -57,7 +57,7 @@ commands = {
 		desc = "Display current score."
 		code = fn {
 			terminal::write("Score: " .. score, nil, 1, 0, 1)
-			local mistakes = (mistakes - 1) * 10
+			local mistakes = (mistakes - 1) * 2
 			if mistakes == 0 {
 				terminal::write("You never messed up so far.", nil, 1, 0, 1)
 			} else {
