@@ -1,5 +1,5 @@
 static font = love.graphics.newFont("clacon2.ttf", 24, "mono")
-static fontheight = font::getHeight() + 4
+static fontheight = 23 //force it to 23 cause windows and linux use different sizes...
 static screenheight = love.graphics.getHeight()
 static leveltime = love.math.random(0, 3000)
 
