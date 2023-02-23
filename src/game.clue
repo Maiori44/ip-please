@@ -77,12 +77,12 @@ commands = {
 				return
 			} elseif user.age < 14 {
 				terminal::write("But they were too young to join.", 60, 1, 0, 0)
-				terminal::write("(-50 points)", 60, 1, 0, 0)
-				score -= 50
+				terminal::write("(-100 points)", 60, 1, 0, 0)
+				score -= 100
 			} elseif user.age >= 80 {
 				terminal::write("But they were a troll.", 60, 1, 0, 0)
-				terminal::write("(-200 points)", 60, 1, 0, 0)
-				score -= 200
+				terminal::write("(-300 points)", 60, 1, 0, 0)
+				score -= 300
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
 				local gained = math.max(500 + math.floor((user.time - leveltime) * 20), 10)
@@ -98,8 +98,8 @@ commands = {
 			terminal::write(user.name .. " was denied connection...", 10)
 			if !user.hacker && user.age >= 14 && user.age < 80 {
 				terminal::write("But they had no bad intentions.", 60, 1, 0, 0)
-				terminal::write("(-100 points)", 60, 1, 0, 0)
-				score -= 100
+				terminal::write("(-200 points)", 60, 1, 0, 0)
+				score -= 200
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
 				local gained = math.max(300 + math.floor((user.time - leveltime) * 20), 10)
