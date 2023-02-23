@@ -57,8 +57,8 @@ commands = {
 			terminal::write("(Valid codes change every minute)")
 			terminal::write("Trolls will try to join with high ages (80+), do not let them in.")
 			terminal::write("Lastly, deny anyone younger than 14.")
-			terminal::write("Allowing and denying correctly will grant you score.")
-			terminal::write("(The faster you are the more score you get)")
+			terminal::write("Allowing and denying correctly will grant you points.")
+			terminal::write("(The faster you are the more points you get)")
 			terminal::write("Messing up may lead to the end of the server.")
 			terminal::write("Good luck, and thanks for playing!", 60, 1, 1, 0)
 		}
