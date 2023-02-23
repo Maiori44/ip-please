@@ -81,6 +81,10 @@ commands = {
 			for i = 1, 10 {
 				terminal::write(EntryCode(seed + i), 60, 1, 1, 0)
 			}
+			terminal::write(string.format(
+				"The codes will change in %d seconds.",
+				29 - math.floor(leveltime % 30)
+			))
 		}
 	}
 	allow = {
