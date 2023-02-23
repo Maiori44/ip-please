@@ -5,7 +5,21 @@ static pointer = 1
 local utf8 = require("utf8")
 local terminal = import("terminal")
 
+local exiting = false
+
 commands = {
+	exit = {
+		desc = "Quit the game."
+		code = fn {
+			if exiting {
+				love.event.quit()
+			} else {
+				exiting = true
+				terminal::write("Are you sure?", nil, 1, 0, 0)
+				terminal::write("(Type exit again to confirm)")
+			}
+		}
+	}
 	help = {
 		desc = "Display this message."
 		code = fn {
@@ -112,6 +126,9 @@ method love.keypressed(key) {
 					command()
 				} else {
 					terminal::write(input .. ": command not found", nil, 1, 0, 0)
+				}
+				if input != "exit" {
+					exiting = false
 				}
 				table.insert(terminal.input, 1, "")
 			}
