@@ -1,3 +1,4 @@
+static score, mistakes = 0, 1
 static hacked, hackamount
 
 local terminal = import("terminal")
@@ -10,7 +11,6 @@ for name with love.filesystem.lines("names.txt") {
 	i += 1
 }
 
-local score, mistakes = 0, 1
 local commands
 
 local fn EntryCode(seed = math.floor(leveltime / 30) * 10 + love.math.random(1, 10)) {

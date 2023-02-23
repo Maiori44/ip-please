@@ -70,6 +70,7 @@ commands = {
 			terminal::write("Done!")
 			terminal::write("Reading first user's information...", 15)
 			commands.start = nil
+			commands.restart = nil
 			setmetatable(commands, {
 				__index = import("game")
 			})

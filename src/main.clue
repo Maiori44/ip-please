@@ -13,6 +13,8 @@ font::setFilter("nearest", "nearest")
 love.graphics.setFont(font)
 love.keyboard.setKeyRepeat(true)
 
+local start_command = commands.start
+
 method love.load() {
 	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗    ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 400)
 	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 400)
@@ -56,7 +58,13 @@ method love.update(dt) {
 			hacked = nil
 			hackamount = nil
 			commands.clear.code()
+			setmetatable(commands, {})
+			commands.restart = start_command
+			score = 0
+			mistakes = 1
 			terminal::write("GAME OVER", 1, 1, 0, 0)
+			terminal::write("You server was destroyed...will you try again?", 15, 1, 0, 0)
+			terminal::write("(Type restart to try again)", nil, 1, 0, 0)
 		}
 	}
 }
