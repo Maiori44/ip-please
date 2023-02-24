@@ -15,6 +15,24 @@ return {
 		table.insert(self, text)
 		table.insert(self.unfinished, text)
 	}
+	corrupt = fn(self) {
+		for _, line in self {
+			local len = utf8.len(line.text)
+			local i = love.math.random(len)
+			local corrupted = ""
+			for p, c with utf8.codes(line.text) {
+				corrupted ..= p == i || p == love.math.random(len)
+					? (hackamount > 0.00005
+						? string.char(love.math.random(33, 122))
+						: " ")
+					: utf8.char(c)
+			}
+			line.text = corrupted
+			line.r = love.math.random()
+			line.g = love.math.random()
+			line.b = love.math.random()
+		}
+	}
 	finished = fn(self) {
 		return #self.unfinished == 0
 	}

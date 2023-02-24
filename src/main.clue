@@ -37,29 +37,17 @@ method love.update(dt) {
 			unfinished.progress = nil
 			table.remove(terminal.unfinished, 1)
 			love.wheelmoved(0, -fontheight)
+			if unfinished.text::sub(-7) == "glitch!" {
+				terminal::corrupt()
+			}
 		}
 	} elseif hacked && leveltime > hacked {
-		for _, line in terminal {
-			local len = utf8.len(line.text)
-			local i = love.math.random(len)
-			local corrupted = ""
-			for p, c with utf8.codes(line.text) {
-				corrupted ..= p == i || p == love.math.random(len)
-					? (hackamount > 0.00005
-						? string.char(love.math.random(33, 122))
-						: " ")
-					: utf8.char(c)
-			}
-			line.text = corrupted
-			line.r = love.math.random()
-			line.g = love.math.random()
-			line.b = love.math.random()
-		}
+		terminal::corrupt()
 		hacked = leveltime + hackamount
 		hackamount = $ / 1.25
 		if hackamount < 0.00000000000001 {
 			hacked = nil
-			hackamount = nil
+			hackamount = 0.5
 			commands.clear.code()
 			setmetatable(commands, {})
 			commands.restart = start_command

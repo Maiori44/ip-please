@@ -1,5 +1,5 @@
 static score, mistakes = 0, 1
-static hacked, hackamount
+static hackamount, hacker = 0.5
 
 local terminal = import("terminal")
 
@@ -22,6 +22,10 @@ local fn EntryCode(seed) {
 	return code
 }
 
+local fn GenerateIP(hacker) {
+	return math.ceil(math.abs(love.math.randomNormal(750, 128)) % (hacker ? 256 : 1000))
+}
+
 local user = {
 	new = fn(self) {
 		local hacker = love.math.random() > 0.7
@@ -30,6 +34,10 @@ local user = {
 		self.code = hacker ? love.math.random(-20, -1) : love.math.random(0, 9)
 		self.time = leveltime
 		self.hacker = hacker
+		self.ip1 = GenerateIP(hacker)
+		self.ip2 = GenerateIP(hacker)
+		self.ip3 = GenerateIP(hacker)
+		self.ip4 = GenerateIP(hacker)
 	}
 	next = fn(self) {
 		commands.score.code()
@@ -70,6 +78,7 @@ commands = {
 		code = fn {
 			terminal::write("Name: " .. user.name, 60, 1, 1, 0)
 			terminal::write("Age: " .. user.age, 60, 1, 1, 0)
+			terminal::write(string.format("IP: %d.%d.%d.%d", user.ip1, user.ip2, user.ip3, user.ip4), 60, 1, 1, 0)
 			terminal::write("Entry Code: " .. EntryCode(user.code), 60, 1, 1, 0)
 		}
 	}
@@ -93,9 +102,11 @@ commands = {
 			if user.hacker {
 				terminal::write("But they were an hacker!", 60, 1, 0, 0)
 				hacked = leveltime + 0.5
-				hackamount = 0.5
 				user::new()
 				return
+			} elseif user.ip1 > 255 || user.ip2 > 255 || user.ip3 > 255 || user.ip4 > 255{
+				terminal::write("But they were a glitch!", 60, 1, 0, 0)
+				AwardScore(math.min(score / -2.5, -500))
 			} elseif user.age < 14 {
 				terminal::write("But they were too young to join.", 60, 1, 0, 0)
 				AwardScore(-100)
@@ -115,7 +126,7 @@ commands = {
 			terminal::write(user.name .. " was denied connection...", 10)
 			if !user.hacker && user.age >= 14 && user.age < 80 {
 				terminal::write("But they had no bad intentions.", 60, 1, 0, 0)
-				AwardScore(-500)
+				AwardScore(-250)
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
 				AwardScore(math.max(300 + math.floor((user.time - leveltime) * 20), 10))
