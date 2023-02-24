@@ -76,7 +76,7 @@ method love.update(dt) {
 	}
 }
 
-local fn UpdateCanvas() {
+global fn UpdateCanvas() {
 	love.graphics.clear()
 	love.graphics.translate(0, 5 + offset)
 	local y = terminal::draw()

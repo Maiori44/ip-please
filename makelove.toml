@@ -8,7 +8,8 @@ love_files = [
     "*.ttf",
     "*.txt",
     "*.glsl",
-    "*.ogg"
+    "*.ogg",
+    "*.png",
 ]
 
 [hooks]
