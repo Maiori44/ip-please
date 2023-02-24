@@ -142,6 +142,6 @@ method love.textinput(t) {
 }
 
 method love.wheelmoved(_, y) {
-	local terminal_size = -((#terminal + 1) * fontheight - screenheight)
+	local terminal_size = -(((#terminal - #terminal.unfinished) + 1) * fontheight - screenheight)
 	offset = math.min(math.max($ + y * fontheight, math.min(terminal_size, 0)), 0)
 }

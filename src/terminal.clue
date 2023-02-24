@@ -14,7 +14,6 @@ return {
 		}
 		table.insert(self, text)
 		table.insert(self.unfinished, text)
-		love.wheelmoved(0, -fontheight)
 	}
 	finished = fn(self) {
 		return #self.unfinished == 0

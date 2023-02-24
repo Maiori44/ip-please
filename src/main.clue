@@ -34,6 +34,7 @@ method love.update(dt) {
 		if unfinished.progress >= #unfinished.text {
 			unfinished.progress = nil
 			table.remove(terminal.unfinished, 1)
+			love.wheelmoved(0, -fontheight)
 		}
 	} elseif hacked && leveltime > hacked {
 		for _, line in terminal {
