@@ -6,6 +6,7 @@ love_files = [
     "*.lua",
     "*.ttf",
     "*.txt",
+    "*.glsl",
 ]
 
 [hooks]
