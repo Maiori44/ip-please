@@ -1,6 +1,6 @@
 static font = love.graphics.newFont("assets/clacon2.ttf", 24, "mono")
 static fontheight = 23 //force it to 23 cause windows and linux use different sizes...
-static screenheight = love.graphics.getHeight()
+static screenheight = love.graphics.getHeight() - 10
 static leveltime = 0
 
 io.stdout::setvbuf("no")
@@ -98,7 +98,7 @@ method love.draw() {
 }
 
 method love.resize(_, height) {
-	screenheight = height
+	screenheight = height - 10
 	screen = love.graphics.newCanvas()
 	love.wheelmoved(0, 0)
 }
