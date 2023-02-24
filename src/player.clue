@@ -68,14 +68,17 @@ commands = {
 			terminal::write("Hackers may try to infiltrate, do not let them in.")
 			terminal::write("(Type 'deny' to not let a user in)")
 			terminal::write("Hackers will use older entry codes that are no longer valid.")
-			terminal::write("Type 'codes' to get a list of currently valid codes.")
-			terminal::write("(Valid codes change every 30 seconds)")
+			terminal::write("Valid codes change every 30 seconds.")
+			terminal::write("(Type 'codes' to get a list of currently valid codes.)")
 			terminal::write("Trolls will try to join with high ages (80+), do not let them in.")
-			terminal::write("Lastly, deny anyone younger than 14.")
+			terminal::write("Also, deny anyone younger than 14.")
+			terminal::write("Lastly, the server may sometimes glitch, you have to prevent that.")
+			terminal::write("For that, deny any user with a number bigger than 255 in their IP.")
 			terminal::write("Allowing and denying correctly will grant you points.")
 			terminal::write("(The faster you are the more points you get)")
 			terminal::write("Messing up may lead to the end of the server.")
 			terminal::write("Good luck, and thanks for playing!", 60, 1, 1, 0)
+			terminal::write("(Type 'play' to begin)")
 		}
 	}
 	start = {
