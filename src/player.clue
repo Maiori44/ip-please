@@ -67,7 +67,7 @@ commands = {
 			terminal::write("(Type 'allow' to let a user in)")
 			terminal::write("Hackers may try to infiltrate, do not let them in.")
 			terminal::write("(Type 'deny' to not let a user in)")
-			terminal::write("Hackers will have an invalid entry code.")
+			terminal::write("Hackers will use older entry codes that are no longer valid.")
 			terminal::write("Type 'codes' to get a list of currently valid codes.")
 			terminal::write("(Valid codes change every 30 seconds)")
 			terminal::write("Trolls will try to join with high ages (80+), do not let them in.")

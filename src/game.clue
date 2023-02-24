@@ -13,8 +13,8 @@ for name with love.filesystem.lines("assets/names.txt") {
 
 local commands
 
-local fn EntryCode(seed = math.floor(leveltime / 30) * 10 + love.math.random(1, 10)) {
-	local rng = love.math.newRandomGenerator(seed)
+local fn EntryCode(seed) {
+	local rng = love.math.newRandomGenerator(math.floor(leveltime / 30) * 10 + seed)
 	local code = ""
 	for _ = 1, 20 {
 		code ..= string.char(rng::random(33, 122))
@@ -27,7 +27,7 @@ local user = {
 		local hacker = love.math.random() > 0.7
 		self.name = names[love.math.random(6000)]
 		self.age = math.floor(hacker ? love.math.random(14, 50) : love.math.random(9, 150))
-		self.code = EntryCode(hacker ? leveltime : nil)
+		self.code = hacker ? love.math.random(-20, -1) : love.math.random(0, 9)
 		self.time = leveltime
 		self.hacker = hacker
 	}
@@ -70,16 +70,15 @@ commands = {
 		code = fn {
 			terminal::write("Name: " .. user.name, 60, 1, 1, 0)
 			terminal::write("Age: " .. user.age, 60, 1, 1, 0)
-			terminal::write("Entry Code: " .. user.code, 60, 1, 1, 0)
+			terminal::write("Entry Code: " .. EntryCode(user.code), 60, 1, 1, 0)
 		}
 	}
 	codes = {
 		desc = "Display the 10 currently valid codes."
 		code = fn {
 			terminal::write("Currently valid codes:")
-			local seed = math.floor(leveltime / 30) * 10
-			for i = 1, 10 {
-				terminal::write(EntryCode(seed + i), 60, 1, 1, 0)
+			for i = 0, 9 {
+				terminal::write(EntryCode(i), 60, 1, 1, 0)
 			}
 			terminal::write(string.format(
 				"The codes will change in %d seconds.",
@@ -116,7 +115,7 @@ commands = {
 			terminal::write(user.name .. " was denied connection...", 10)
 			if !user.hacker && user.age >= 14 && user.age < 80 {
 				terminal::write("But they had no bad intentions.", 60, 1, 0, 0)
-				AwardScore(-200)
+				AwardScore(-500)
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
 				AwardScore(math.max(300 + math.floor((user.time - leveltime) * 20), 10))
