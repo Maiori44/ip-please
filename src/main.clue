@@ -9,9 +9,11 @@ local utf8 = require("utf8")
 local terminal = import("terminal")
 import("player")
 
-font::setFilter("nearest", "nearest")
+local screen = love.graphics.newCanvas()
+
 love.graphics.setFont(font)
 love.keyboard.setKeyRepeat(true)
+love.graphics.setShader(love.graphics.newShader("assets/shader.glsl"))
 
 local start_command = commands.start
 
@@ -70,7 +72,8 @@ method love.update(dt) {
 	}
 }
 
-method love.draw() {
+local fn UpdateCanvas() {
+	love.graphics.clear()
 	love.graphics.translate(0, 5 + offset)
 	local y = terminal::draw()
 	if terminal::finished() && !hacked {
@@ -83,7 +86,15 @@ method love.draw() {
 	}
 }
 
+method love.draw() {
+	screen::renderTo(UpdateCanvas)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.origin()
+	love.graphics.draw(screen)
+}
+
 method love.resize(_, height) {
 	screenheight = height
+	screen = love.graphics.newCanvas()
 	love.wheelmoved(0, 0)
 }
