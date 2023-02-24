@@ -18,12 +18,12 @@ love.graphics.setShader(love.graphics.newShader("assets/shader.glsl"))
 local start_command = commands.start
 
 method love.load() {
-	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗    ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 400)
-	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 400)
-	terminal::write("║ ║ ║ ╚═╝ ║     ║ ╚═╝ ║ ║ ║    ║ ╚═══╗ ║ ╚═╝ ║ ║ ╚═══╗ ║ ╚═══╗", 400)
-	terminal::write("║ ║ ║ ╔═══╝     ║ ╔═══╝ ║ ║    ║ ╔═══╝ ║ ╔═╗ ║ ╚═══╗ ║ ║ ╔═══╝", 400)
-	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 400)
-	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 400)
+	terminal::write("╔═╗ ╔═════╗     ╔═════╗ ╔═╗     ╔═════╗ ╔═════╗ ╔═════╗ ╔═════╗", 400)
+	terminal::write("║ ║ ║ ╔═╗ ║     ║ ╔═╗ ║ ║ ║     ║ ╔═══╝ ║ ╔═╗ ║ ║ ╔═══╝ ║ ╔═══╝", 400)
+	terminal::write("║ ║ ║ ╚═╝ ║     ║ ╚═╝ ║ ║ ║     ║ ╚═══╗ ║ ╚═╝ ║ ║ ╚═══╗ ║ ╚═══╗", 400)
+	terminal::write("║ ║ ║ ╔═══╝     ║ ╔═══╝ ║ ║     ║ ╔═══╝ ║ ╔═╗ ║ ╚═══╗ ║ ║ ╔═══╝", 400)
+	terminal::write("║ ║ ║ ║         ║ ║     ║ ╚═══╗ ║ ╚═══╗ ║ ║ ║ ║ ╔═══╝ ║ ║ ╚═══╗", 400)
+	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚═════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 400)
 	terminal::write("A game for the LÖVE Jam 2023 - Created by Maiori")
 	terminal::write("(Type 'guide' for instructions)")
 }
