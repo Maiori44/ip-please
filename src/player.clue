@@ -6,6 +6,8 @@ local utf8 = require("utf8")
 local terminal = import("terminal")
 
 local exiting = false
+local beep = love.audio.newSource("assets/beep.ogg", "static")
+local key_press = love.audio.newSource("assets/key.ogg", "static")
 
 commands = {
 	exit = {
@@ -84,6 +86,7 @@ commands = {
 	start = {
 		desc = "Starts the game."
 		code = fn {
+			beep::play()
 			leveltime = 0
 			terminal::write("Starting server...", 5)
 			terminal::write("Done!")
@@ -98,9 +101,13 @@ commands = {
 	}
 }
 
-method love.keypressed(key) {
+method love.keypressed(key, _, isrepeat) {
 	if hacked {
 		return
+	}
+	if !isrepeat {
+		key_press::seek(0)
+		key_press::play()
 	}
 	love.wheelmoved(0, -math.huge)
 	if terminal::finished() {

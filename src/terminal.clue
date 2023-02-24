@@ -1,4 +1,8 @@
+static errors = 0
+
 local utf8 = require("utf8")
+
+local error = love.audio.newSource("assets/error.ogg", "static")
 
 return {
 	input = {""}
@@ -16,6 +20,10 @@ return {
 		table.insert(self.unfinished, text)
 	}
 	corrupt = fn(self) {
+		if !error::isPlaying() && errors > 0 {
+			error::play()
+			errors -= 1
+		}
 		for _, line in self {
 			local len = utf8.len(line.text)
 			local i = love.math.random(len)

@@ -10,6 +10,9 @@ local terminal = import("terminal")
 import("player")
 
 local screen = love.graphics.newCanvas()
+local hum = love.audio.newSource("assets/hum.ogg", "stream")
+local win = love.audio.newSource("assets/win.ogg", "static")
+local wrong = love.audio.newSource("assets/wrong.ogg", "static")
 
 love.graphics.setFont(font)
 love.keyboard.setKeyRepeat(true)
@@ -26,6 +29,9 @@ method love.load() {
 	terminal::write("╚═╝ ╚═╝         ╚═╝     ╚═════╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═════╝", 400)
 	terminal::write("A game for the LÖVE Jam 2023 - Created by Maiori")
 	terminal::write("(Type 'guide' for instructions)")
+	hum::setLooping(true)
+	hum::setVolume(0.10)
+	hum::play()
 }
 
 method love.update(dt) {
@@ -37,8 +43,16 @@ method love.update(dt) {
 			unfinished.progress = nil
 			table.remove(terminal.unfinished, 1)
 			love.wheelmoved(0, -fontheight)
-			if unfinished.text::sub(-7) == "glitch!" {
-				terminal::corrupt()
+			match unfinished.text::sub(-7) { //this is a hacky way to do this...
+				"glitch!" => {
+					terminal::corrupt()
+				}
+				"choice!" => {
+					win::play()
+				}
+				"o join." || " troll." || "ntions." => {
+					wrong::play()
+				}
 			}
 		}
 	} elseif hacked && leveltime > hacked {
@@ -52,7 +66,7 @@ method love.update(dt) {
 			setmetatable(commands, {})
 			commands.restart = start_command
 			terminal::write("GAME OVER", 1, 1, 0, 0)
-			terminal::write("You server was destroyed...will you try again?", 15, 1, 0, 0)
+			terminal::write("Your server was destroyed...will you try again?", 15, 1, 0, 0)
 			terminal::write("Final Score: " .. score, nil, 1, 0, 0)
 			terminal::write("You messed up " .. ((mistakes - 1) * 2) .. " times.", nil, 1, 0, 0)
 			terminal::write("(Type 'restart' to try again)", nil, 1, 0, 0)
