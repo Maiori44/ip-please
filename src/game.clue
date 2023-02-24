@@ -108,7 +108,7 @@ commands = {
 			if user.hacker {
 				terminal::write("But they were an hacker!", 60, 1, 0, 0)
 				hacked = leveltime + 0.5
-				mistakes += 1
+				mistakes += 0.5
 				user::new()
 				return
 			} elseif user.glitch {
