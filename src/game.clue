@@ -24,19 +24,19 @@ local fn EntryCode(seed) {
 }
 
 local fn GenerateIP(hacker) {
-	return math.ceil(math.abs(love.math.randomNormal(60, 128)) % (hacker ? 256 : 1000))
+	return math.ceil(math.abs(love.math.randomNormal(62, 128)) % (hacker ? 256 : 1000))
 }
 
 local user = {
 	new = fn(self) {
-		local hacker = love.math.random() > 0.82
+		local hacker = love.math.random() > 0.76
 		self.ip1 = GenerateIP(hacker)
 		self.ip2 = GenerateIP(hacker)
 		self.ip3 = GenerateIP(hacker)
 		self.ip4 = GenerateIP(hacker)
 		self.glitch = self.ip1 > 255 || self.ip2 > 255 || self.ip3 > 255 || self.ip4 > 255
 		self.name = names[love.math.random(6000)]
-		self.age = math.floor((hacker || glitch) ? love.math.random(14, 79) : love.math.random(9, 135))
+		self.age = math.floor((hacker || glitch) ? love.math.random(14, 79) : love.math.random(9, 145))
 		self.code = hacker ? love.math.random(-20, -1) : love.math.random(0, 9)
 		self.time = leveltime
 		self.hacker = hacker
