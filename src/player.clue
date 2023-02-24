@@ -55,6 +55,7 @@ commands = {
 				terminal[k] = nil
 			}
 			love.wheelmoved(0, 0)
+			collectgarbage("collect")
 		}
 	}
 	guide = {
