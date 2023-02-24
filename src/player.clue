@@ -78,7 +78,7 @@ commands = {
 			terminal::write("(The faster you are the more points you get)")
 			terminal::write("Messing up may lead to the end of the server.")
 			terminal::write("Good luck, and thanks for playing!", 60, 1, 1, 0)
-			terminal::write("(Type 'play' to begin)")
+			terminal::write("(Type 'start' to begin)")
 		}
 	}
 	start = {
@@ -93,7 +93,6 @@ commands = {
 				__index = import("game")
 			})
 			commands.user.code()
-			terminal::write("(If this is your first time playing, type 'guide' for help)")
 		}
 	}
 }

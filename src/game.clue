@@ -23,21 +23,22 @@ local fn EntryCode(seed) {
 }
 
 local fn GenerateIP(hacker) {
-	return math.ceil(math.abs(love.math.randomNormal(750, 128)) % (hacker ? 256 : 1000))
+	return math.ceil(math.abs(love.math.randomNormal(65, 128)) % (hacker ? 256 : 1000))
 }
 
 local user = {
 	new = fn(self) {
-		local hacker = love.math.random() > 0.7
-		self.name = names[love.math.random(6000)]
-		self.age = math.floor(hacker ? love.math.random(14, 50) : love.math.random(9, 150))
-		self.code = hacker ? love.math.random(-20, -1) : love.math.random(0, 9)
-		self.time = leveltime
-		self.hacker = hacker
+		local hacker = love.math.random() > 0.72
 		self.ip1 = GenerateIP(hacker)
 		self.ip2 = GenerateIP(hacker)
 		self.ip3 = GenerateIP(hacker)
 		self.ip4 = GenerateIP(hacker)
+		self.glitch = self.ip1 > 255 || self.ip2 > 255 || self.ip3 > 255 || self.ip4 > 255
+		self.name = names[love.math.random(6000)]
+		self.age = math.floor((hacker || glitch) ? love.math.random(14, 79) : love.math.random(9, 135))
+		self.code = hacker ? love.math.random(-20, -1) : love.math.random(0, 9)
+		self.time = leveltime
+		self.hacker = hacker
 	}
 	next = fn(self) {
 		commands.score.code()
@@ -104,7 +105,7 @@ commands = {
 				hacked = leveltime + 0.5
 				user::new()
 				return
-			} elseif user.ip1 > 255 || user.ip2 > 255 || user.ip3 > 255 || user.ip4 > 255{
+			} elseif user.glitch {
 				terminal::write("But they were a glitch!", 60, 1, 0, 0)
 				AwardScore(math.min(score / -2.5, -500))
 			} elseif user.age < 14 {
@@ -124,9 +125,9 @@ commands = {
 		desc = "Deny the current user."
 		code = fn {
 			terminal::write(user.name .. " was denied connection...", 10)
-			if !user.hacker && user.age >= 14 && user.age < 80 {
+			if !user.hacker && !user.glitch && user.age >= 14 && user.age < 80 {
 				terminal::write("But they had no bad intentions.", 60, 1, 0, 0)
-				AwardScore(-250)
+				AwardScore(-500)
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
 				AwardScore(math.max(300 + math.floor((user.time - leveltime) * 20), 10))
