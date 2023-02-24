@@ -1,7 +1,7 @@
 static font = love.graphics.newFont("assets/clacon2.ttf", 24, "mono")
 static fontheight = 23 //force it to 23 cause windows and linux use different sizes...
 static screenheight = love.graphics.getHeight()
-static leveltime = love.math.random(0, 3000)
+static leveltime = 0
 
 io.stdout::setvbuf("no")
 
@@ -54,12 +54,10 @@ method love.update(dt) {
 			terminal::write("GAME OVER", 1, 1, 0, 0)
 			terminal::write("You server was destroyed...will you try again?", 15, 1, 0, 0)
 			terminal::write("Final Score: " .. score, nil, 1, 0, 0)
-			local mistakes = (mistakes - 1) * 2
-			terminal::write("You messed up " .. mistakes .. " times.", nil, 1, 0, 1)
+			terminal::write("You messed up " .. ((mistakes - 1) * 2) .. " times.", nil, 1, 0, 0)
 			terminal::write("(Type 'restart' to try again)", nil, 1, 0, 0)
 			score = 0
 			mistakes = 1
-
 		}
 	}
 }

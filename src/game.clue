@@ -12,9 +12,10 @@ for name with love.filesystem.lines("assets/names.txt") {
 }
 
 local commands
+local seed2 = love.math.random(10, 10000) 
 
 local fn EntryCode(seed) {
-	local rng = love.math.newRandomGenerator(math.floor(leveltime / 30) * 10 + seed)
+	local rng = love.math.newRandomGenerator((seed2 + math.floor(leveltime / 30)) * 10 + seed)
 	local code = ""
 	for _ = 1, 20 {
 		code ..= string.char(rng::random(33, 122))
@@ -44,7 +45,7 @@ local user = {
 		commands.score.code()
 		terminal::write("Reading next user's information...", 15)
 		self::new()
-		commands.user.code()
+		commands.user.code(4)
 	}
 }
 
@@ -76,14 +77,14 @@ commands = {
 	}
 	user = {
 		desc = "Display the info of the user trying to connect."
-		code = fn {
+		code = fn(s = 0) {
 			terminal::write("Name: " .. user.name, 60, 1, 1, 0)
 			terminal::write("Age: " .. user.age, 60, 1, 1, 0)
 			terminal::write(string.format("IP: %d.%d.%d.%d", user.ip1, user.ip2, user.ip3, user.ip4), 60, 1, 1, 0)
 			terminal::write(string.format(
 				"Entry Code: %s   (changes in %d seconds)",
 				EntryCode(user.code),
-				29 - math.floor(leveltime % 30)
+				math.max(29 - math.floor(leveltime % 30) - s, 0)
 			), 60, 1, 1, 0)
 		}
 	}

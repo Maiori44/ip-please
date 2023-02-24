@@ -84,6 +84,7 @@ commands = {
 	start = {
 		desc = "Starts the game."
 		code = fn {
+			leveltime = 0
 			terminal::write("Starting server...", 5)
 			terminal::write("Done!")
 			terminal::write("Reading first user's information...", 15)
@@ -92,7 +93,7 @@ commands = {
 			setmetatable(commands, {
 				__index = import("game")
 			})
-			commands.user.code()
+			commands.user.code(3)
 		}
 	}
 }
