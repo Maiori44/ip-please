@@ -95,6 +95,7 @@ commands = {
 				terminal::write("But they were an hacker!", 60, 1, 0, 0)
 				hacked = leveltime + 0.5
 				hackamount = 0.5
+				user::new()
 				return
 			} elseif user.age < 14 {
 				terminal::write("But they were too young to join.", 60, 1, 0, 0)
