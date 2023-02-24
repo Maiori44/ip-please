@@ -51,11 +51,15 @@ method love.update(dt) {
 			commands.clear.code()
 			setmetatable(commands, {})
 			commands.restart = start_command
-			score = 0
-			mistakes = 1
 			terminal::write("GAME OVER", 1, 1, 0, 0)
 			terminal::write("You server was destroyed...will you try again?", 15, 1, 0, 0)
+			terminal::write("Final Score: " .. score, nil, 1, 0, 0)
+			local mistakes = (mistakes - 1) * 2
+			terminal::write("You messed up " .. mistakes .. " times.", nil, 1, 0, 1)
 			terminal::write("(Type 'restart' to try again)", nil, 1, 0, 0)
+			score = 0
+			mistakes = 1
+
 		}
 	}
 }

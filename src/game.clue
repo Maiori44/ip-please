@@ -23,12 +23,12 @@ local fn EntryCode(seed) {
 }
 
 local fn GenerateIP(hacker) {
-	return math.ceil(math.abs(love.math.randomNormal(65, 128)) % (hacker ? 256 : 1000))
+	return math.ceil(math.abs(love.math.randomNormal(60, 128)) % (hacker ? 256 : 1000))
 }
 
 local user = {
 	new = fn(self) {
-		local hacker = love.math.random() > 0.72
+		local hacker = love.math.random() > 0.82
 		self.ip1 = GenerateIP(hacker)
 		self.ip2 = GenerateIP(hacker)
 		self.ip3 = GenerateIP(hacker)
@@ -80,7 +80,11 @@ commands = {
 			terminal::write("Name: " .. user.name, 60, 1, 1, 0)
 			terminal::write("Age: " .. user.age, 60, 1, 1, 0)
 			terminal::write(string.format("IP: %d.%d.%d.%d", user.ip1, user.ip2, user.ip3, user.ip4), 60, 1, 1, 0)
-			terminal::write("Entry Code: " .. EntryCode(user.code), 60, 1, 1, 0)
+			terminal::write(string.format(
+				"Entry Code: %s   (changes in %d seconds)",
+				EntryCode(user.code),
+				29 - math.floor(leveltime % 30)
+			), 60, 1, 1, 0)
 		}
 	}
 	codes = {
@@ -103,6 +107,7 @@ commands = {
 			if user.hacker {
 				terminal::write("But they were an hacker!", 60, 1, 0, 0)
 				hacked = leveltime + 0.5
+				mistakes += 1
 				user::new()
 				return
 			} elseif user.glitch {

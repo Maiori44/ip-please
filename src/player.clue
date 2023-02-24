@@ -101,6 +101,7 @@ method love.keypressed(key) {
 	if hacked {
 		return
 	}
+	love.wheelmoved(0, -math.huge)
 	if terminal::finished() {
 		local input = terminal.input[1]::gsub("%s+", "")
 		match key {
