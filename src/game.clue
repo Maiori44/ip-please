@@ -6,7 +6,7 @@ local terminal = import("terminal")
 local names = {}
 
 local i = 1
-for name with love.filesystem.lines("names.txt") {
+for name with love.filesystem.lines("assets/names.txt") {
 	names[i] = name
 	i += 1
 }
