@@ -58,8 +58,7 @@ method love.update(dt) {
 	} elseif hacked && leveltime > hacked {
 		terminal::corrupt()
 		hacked = leveltime + hackamount
-		hackamount /= 1.25
-		print(hackamount)
+		hackamount -= $ * 22 * dt
 		if hackamount < 0.00000000000001 {
 			hacked = nil
 			hackamount = 0.5
@@ -79,7 +78,6 @@ method love.update(dt) {
 
 global fn UpdateCanvas() {
 	love.graphics.clear()
-	love.graphics.translate(0, 5 + offset)
 	local y = terminal::draw()
 	if terminal::finished() && !hacked {
 		love.graphics.setColor(0.125490196, 0.760784314, 0.054901961)
@@ -94,7 +92,6 @@ global fn UpdateCanvas() {
 method love.draw() {
 	screen::renderTo(UpdateCanvas)
 	love.graphics.setColor(1, 1, 1)
-	love.graphics.origin()
 	love.graphics.draw(screen)
 }
 

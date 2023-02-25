@@ -24,7 +24,12 @@ return {
 			error::play()
 			errors -= 1
 		}
+		local y = 5 + offset - fontheight
 		for _, line in self {
+			y += fontheight
+			if y < -fontheight || y > screenheight + fontheight {
+				continue
+			}
 			local len = utf8.len(line.text)
 			local i = love.math.random(len)
 			local corrupted = ""
@@ -45,8 +50,12 @@ return {
 		return #self.unfinished == 0
 	}
 	draw = fn(self) {
-		local y = 0
+		local y = 5 + offset - fontheight
 		for i, line in self {
+			y += fontheight
+			if y < -fontheight || y > screenheight + fontheight {
+				continue
+			}
 			local {progress, text, r, g, b} = line
 			love.graphics.setColor(r, g, b)
 			if !progress {
@@ -62,8 +71,7 @@ return {
 				}
 				love.graphics.print(toprint .. "▇", 5, y)
 			}
-			y += fontheight
 		}
-		return y
+		return y + fontheight
 	}
 }
