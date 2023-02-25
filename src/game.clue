@@ -118,10 +118,10 @@ commands = {
 				errors = 1
 			} elseif user.age < 14 {
 				terminal::write("But they were too young to join.", 60, 1, 0, 0)
-				AwardScore(-100)
+				AwardScore(-300)
 			} elseif user.age >= 80 {
 				terminal::write("But they were a troll.", 60, 1, 0, 0)
-				AwardScore(-300)
+				AwardScore(-200)
 			} else {
 				terminal::write("And that was the correct choice!", 60, 1, 1, 0)
 				AwardScore(math.max(500 + math.floor((user.time - leveltime) * 20), 10))
