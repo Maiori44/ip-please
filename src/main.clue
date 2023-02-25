@@ -58,7 +58,8 @@ method love.update(dt) {
 	} elseif hacked && leveltime > hacked {
 		terminal::corrupt()
 		hacked = leveltime + hackamount
-		hackamount *= (dt / 0.021225)
+		hackamount /= 1.25
+		print(hackamount)
 		if hackamount < 0.00000000000001 {
 			hacked = nil
 			hackamount = 0.5

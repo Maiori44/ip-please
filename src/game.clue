@@ -1,5 +1,5 @@
 static score, mistakes = 0, 1
-static hackamount, hacker = 0.5
+static hackamount, hacked = 0.5
 
 local terminal = import("terminal")
 
@@ -29,7 +29,7 @@ local fn GenerateIP(hacker) {
 
 local user = {
 	new = fn(self) {
-		local hacker = love.math.random() > 0.8
+		local hacker = love.math.random() > 0//0.8
 		self.ip1 = GenerateIP(hacker)
 		self.ip2 = GenerateIP(hacker)
 		self.ip3 = GenerateIP(hacker)
